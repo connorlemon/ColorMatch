@@ -1,8 +1,10 @@
 var colors = [];
-var startingNumber = 12;
 var pickedColor;
 var timesRun;
 var phaseInterval;
+var countdownInterval;
+var score = 0;
+var startingNumber = 12;
 var intTimer = 2000;
 var maxPhases = 12;
 var isLocked = true;
@@ -10,30 +12,59 @@ var squares = document.querySelectorAll(".square");
 var startBtn = document.querySelector("#startBtn");
 var modeButtons = document.querySelectorAll(".mode");
 var goalSquare = document.querySelector("#goalSquare");
-var score = document.querySelector("#score");
 var userMessage = document.querySelector("#userMessage");
-var timer = document.querySelector("#timer");
+var countdown = document.querySelector("#countdown");
 var gameOver = document.querySelector("#gameOver");
 
-
-
-generateRandomColors(startingNumber);
-setBackgrounds();
-setMode();
-hideSquares();
+setGame();
 
 startBtn.addEventListener("click", function(){
 	if(startBtn.textContent === "Start"){
 		resetGame();
 		score.textContent = "0";
 		timesRun = 0;
-    	addListeners();
-    	startGame();
+		var i = 3;
+		countdownInterval = setInterval(function(){
+				if(i === 3){
+					countdown.textContent = "3";
+					i--;
+				} else if (i === 2){
+					countdown.textContent = "2";
+					i--;
+				} else if (i === 1){
+					countdown.textContent = "1";
+					i--;
+				} else if (i === 0){
+					i--;
+					countdown.textContent = "GO";
+					addListeners();
+					startGame();
+				} else if (i === -1){
+					countdown.textContent = score;
+					clearInterval(countdownInterval);
+				}
+			}
+		, 1000);
 	} else {
 		stopGame();
 	}
-    
 });
+
+function setGame(){
+	score = 0;
+	showAllSquares();
+	generateRandomColors(startingNumber);
+	setBackgrounds();
+	setMode();
+	hideSquares();
+}
+
+function startGame(){
+	setGame();
+	startBtn.textContent = "End";
+    clearInterval(phaseInterval);
+    phaseInterval = setInterval(nextPhase, intTimer);
+}
 
 function resetGame(){
 	gameOver.style.display = "none";
@@ -54,26 +85,23 @@ function setMode(){
                 startingNumber = 4;
                 maxPhases = 10;
                 intTimer = 2500;
-                timer.textContent = "2.5";
             } else if(selectedMode === "Medium"){
                 startingNumber = 8;
                 maxPhases = 10;
                 intTimer = 2000;
-                timer.textContent = "2";
             } else if(selectedMode === "Hard"){
                 startingNumber = 12;
                 maxPhases = 14;
                 intTimer = 1500;
-                timer.textContent = "1.5";
             } else {
                 startingNumber = 16;
                 maxPhases = 18;
                 intTimer = 1000;
-                timer.textContent = "1.0";
             }
             generateRandomColors(startingNumber);
             setBackgrounds();
             hideSquares();
+			gameOver.style.display = "none";
         });
     }
 }
@@ -96,16 +124,7 @@ function showAllSquares(){
     }
 }
 
-function startGame(){
-	startBtn.textContent = "End Game";
-	//Add a countdown to start timer
-	
-	//Add inProgress timer
-	//Add Game Over
-	
-    clearInterval(phaseInterval);
-    phaseInterval = setInterval(nextPhase, intTimer);
-}
+
 
 function nextPhase() {
     if(timesRun >= maxPhases){
@@ -123,7 +142,7 @@ function stopGame(){
     clearInterval(phaseInterval);
     removeListeners();
 	hideAllSquares();
-	finalScore.textContent = score.textContent;
+	finalScore.textContent = score;
 	gameOver.style.display = "block";
 }
 
@@ -166,7 +185,8 @@ function removeListeners() {
 function scoreListener() {
     var squareColor = this.style.backgroundColor;
     if(squareColor === pickedColor){
-        score.textContent++;
+        score++;
+		countdown.textContent = score;
     } else {
         this.style.backgroundColor = "black";
     }

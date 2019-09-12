@@ -4,10 +4,12 @@ body {
     margin: auto;
     width: 700px;
     text-align: center;
+	font-family: 'Chilanka', cursive;
 }
 
 h1 {
     font-size: 3rem;
+	margin-top: 40px;
 }
 
 #header {
@@ -18,8 +20,14 @@ h1 {
     text-align: center;
 }
 
+#score1 {
+	font-size: 2rem;
+}
+
 #subtext {
+	padding-top: 10px;
     font-size: 1.3rem;
+	color: rgba(234, 234, 234, .9);
 }
 
 #colorDisplay {
@@ -38,6 +46,7 @@ h1 {
 }
 
 #countdown {
+	padding-top: 20%;
 	font-size: 5rem;
 	color: white;
 }
@@ -67,19 +76,20 @@ h1 {
 }
 
 #stripe {
-    background-color: white;
+    background-color: rgba(38,156,127,.2);
     text-align: center;
 }
 
 button {
+	font-family: 'Chilanka', cursive;
     background: none;
     border: 0;
     font-size: 1.4rem;
     height: 100%;
     text-transform: uppercase;
-    color: steelblue;
+    color: white;
     outline: none;
-    padding-top: 0;
+    padding-top: 8px;
     transition: all 0.3s;
      /* These just add browser compatibility */
      -webkit-transition: all 0.6s;
@@ -87,7 +97,7 @@ button {
 }
 
 button:hover {
-    background: steelblue;
+    background: rgba(38,156,127,.5);
     color: white;
 }
 
@@ -97,7 +107,7 @@ button:hover {
     font-size: 1.4rem;
     height: 100%;
     text-transform: uppercase;
-    color: steelblue;
+    color: white;
     outline: none;
     padding-right: 25px;
     margin: 0 25px;
@@ -106,9 +116,10 @@ button:hover {
 
 #gameOver {
 	display: none;
+	margin-top: 11%;
 }
 
 .selected {
-    background: steelblue;
+    background: rgba(38,156,127,.5);
     color: white;
 }
