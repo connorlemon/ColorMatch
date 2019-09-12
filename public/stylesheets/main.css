@@ -29,12 +29,17 @@ h1 {
 
 #goalSquare {
     background: white;
-    padding-bottom: 15%;
-    padding-left: 5%;
+    padding: 1% 2.5%;
     width: 17.5%;
     margin: 0 auto;
     margin-top: 2%;
     border-radius: 11%;
+	text-align: center;
+}
+
+#countdown {
+	font-size: 5rem;
+	color: white;
 }
 
 .square {
@@ -97,6 +102,10 @@ button:hover {
     padding-right: 25px;
     margin: 0 25px;
     border-bottom: 0;
+}
+
+#gameOver {
+	display: none;
 }
 
 .selected {

@@ -13,6 +13,7 @@ var goalSquare = document.querySelector("#goalSquare");
 var score = document.querySelector("#score");
 var userMessage = document.querySelector("#userMessage");
 var timer = document.querySelector("#timer");
+var gameOver = document.querySelector("#gameOver");
 
 
 
@@ -22,13 +23,24 @@ setMode();
 hideSquares();
 
 startBtn.addEventListener("click", function(){
-    score.textContent = "0";
-    timesRun = 0;
-    addListeners();
-    startGame();
+	if(startBtn.textContent === "Start"){
+		resetGame();
+		score.textContent = "0";
+		timesRun = 0;
+    	addListeners();
+    	startGame();
+	} else {
+		stopGame();
+	}
+    
 });
 
+function resetGame(){
+	gameOver.style.display = "none";
+}
+
 function setMode(){
+	resetGame();
     for(var i = 0; i < modeButtons.length; i++){
         modeButtons[i].addEventListener("click", function(){
             modeButtons[0].classList.remove("selected");
@@ -72,6 +84,12 @@ function hideSquares(){
     }
 }
 
+function hideAllSquares(){
+	for(var i = 0; i < squares.length; i++){
+        squares[i].style.display = "none";
+    }
+}
+
 function showAllSquares(){
     for(var i = 0; i < squares.length; i++){
         squares[i].style.display = "block";
@@ -79,6 +97,12 @@ function showAllSquares(){
 }
 
 function startGame(){
+	startBtn.textContent = "End Game";
+	//Add a countdown to start timer
+	
+	//Add inProgress timer
+	//Add Game Over
+	
     clearInterval(phaseInterval);
     phaseInterval = setInterval(nextPhase, intTimer);
 }
@@ -95,8 +119,12 @@ function nextPhase() {
 }
 
 function stopGame(){
+	startBtn.textContent = "Start";
     clearInterval(phaseInterval);
     removeListeners();
+	hideAllSquares();
+	finalScore.textContent = score.textContent;
+	gameOver.style.display = "block";
 }
 
 
