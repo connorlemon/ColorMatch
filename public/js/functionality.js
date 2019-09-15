@@ -26,14 +26,6 @@ var goSound = new Howl({
 	src: ['sounds/sound2.mp3']
 });
 
-var correctSound = new Howl({
-	src: ['sounds/sound2.mp3']
-});
-
-var incorrectSound = new Howl({
-	src: ['sounds/sound1.mp3']
-});
-
 var gameOverSound = new Howl({
 	src: ['sounds/sound3.mp3']
 });
@@ -210,11 +202,9 @@ function removeListeners() {
 function scoreListener() {
     var squareColor = this.style.backgroundColor;
     if(squareColor === pickedColor){
-		correctSound.play();
         score++;
 		countdown.textContent = score;
     } else {
-		incorrectSound.play();
         this.style.backgroundColor = "black";
     }
 }
