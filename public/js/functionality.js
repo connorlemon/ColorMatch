@@ -18,6 +18,26 @@ var gameOver = document.querySelector("#gameOver");
 
 setGame();
 
+var countdownSound = new Howl({
+	src: ['sounds/sound1.mp3']
+});
+
+var goSound = new Howl({
+	src: ['sounds/sound2.mp3']
+});
+
+var correctSound = new Howl({
+	src: ['sounds/sound2.mp3']
+});
+
+var incorrectSound = new Howl({
+	src: ['sounds/sound1.mp3']
+});
+
+var gameOverSound = new Howl({
+	src: ['sounds/sound3.mp3']
+});
+
 startBtn.addEventListener("click", function(){
 	if(startBtn.textContent === "Start"){
 		resetGame();
@@ -27,14 +47,18 @@ startBtn.addEventListener("click", function(){
 		countdownInterval = setInterval(function(){
 				if(i === 3){
 					countdown.textContent = "3";
+					countdownSound.play();
 					i--;
 				} else if (i === 2){
 					countdown.textContent = "2";
+					countdownSound.play();
 					i--;
 				} else if (i === 1){
 					countdown.textContent = "1";
+					countdownSound.play();
 					i--;
 				} else if (i === 0){
+					goSound.play();
 					i--;
 					countdown.textContent = "GO";
 					addListeners();
@@ -138,6 +162,7 @@ function nextPhase() {
 }
 
 function stopGame(){
+	gameOverSound.play();
 	startBtn.textContent = "Start";
     clearInterval(phaseInterval);
     removeListeners();
@@ -185,9 +210,11 @@ function removeListeners() {
 function scoreListener() {
     var squareColor = this.style.backgroundColor;
     if(squareColor === pickedColor){
+		correctSound.play();
         score++;
 		countdown.textContent = score;
     } else {
+		incorrectSound.play();
         this.style.backgroundColor = "black";
     }
 }

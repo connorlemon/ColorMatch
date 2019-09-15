@@ -1,6 +1,7 @@
 var express = 	require('express'),
 	app		=	express(),
-	bodyParser = require("body-parser");
+	bodyParser = require("body-parser"),
+	Howl = require('howler');
 
 app.set("view engine", "ejs");
 
